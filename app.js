@@ -1,5 +1,6 @@
 // TODO: nice messages
 // TODO: errors
+// TODO: colors to output
 var url = '' // http://www.feg-ffb.de/2017/05/01/liebe-ist-das-thema/
 if (process.argv.length !== 3) {
   console.error('Please add URL as argument')
@@ -12,11 +13,14 @@ var cheerio = require('cheerio')
 var request = require('request')
 var fs = require('fs')
 var download = require('download')
+var gm = require('gm')
+var imageMagick = gm.subClass({imageMagick: true})
+var execSync = require('child_process').execSync
 var data = {}
 request(url, function (error, response, body) {
   if (error) {
     console.error('error:', error)
-    process.exit(1)
+    process.exit(2)
   } else {
     var $ = cheerio.load(body)
 
@@ -45,13 +49,28 @@ request(url, function (error, response, body) {
     })
 
     // TODO: Create Front-Image using data and imagemagick (width-org:750, width:targ:720)
+    imageMagick('tmp/image.jpg')
+      .resizeExact(720)
+      .font('Helvetica.ttf', 12)
+      .stroke('#000000', 1)
+      .fill('#ffffff')
+      .drawText(20, 72, data.title)
+      .write('tmp/movie_image.jpg', function (err) {
+        if (err) {
+          console.error('error', err)
+          process.exit(3)
+        } else {
+          // TODO: create movie using Front-Image and mp3 https://superuser.com/questions/1041816/combine-one-image-one-audio-file-to-make-one-video-using-ffmpeg
+          execSync('ffmpeg -r 1 -loop 1 -i tmp/movie_image.jpg -i tmp/predigt.mp3 -acodec copy -shortest tmp/movie.mp4')
+          // TODO: write output. check result (is there a movie.mp4?)
 
-    // TODO: create movie using Front-Image and mp3 https://superuser.com/questions/1041816/combine-one-image-one-audio-file-to-make-one-video-using-ffmpeg
+          // TODO: Add VOrspann, Abspann https://wiki.ubuntuusers.de/transcode/#Videos-anhaengen
+          // avimerge -i Video1 Video2 Video3 -o VideoAlle
 
-    // TODO: Add VOrspann, Abspann https://wiki.ubuntuusers.de/transcode/#Videos-anhaengen
+          // TODO: upload to youtube https://github.com/IonicaBizau/youtube-api/blob/master/README.md
 
-    // TODO: upload to youtube https://github.com/IonicaBizau/youtube-api/blob/master/README.md
-
-    // TODO: cleanup tmp folder
+          // TODO: cleanup tmp folder
+        }
+      })
   }
 })
