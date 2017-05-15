@@ -61,8 +61,8 @@ request(url, function (error, response, body) {
           process.exit(3)
         } else {
           // TODO: create movie using Front-Image and mp3 https://superuser.com/questions/1041816/combine-one-image-one-audio-file-to-make-one-video-using-ffmpeg
-          execSync('ffmpeg -r 1 -loop 1 -i tmp/movie_image.jpg -i tmp/predigt.mp3 -acodec copy -shortest tmp/movie.mp4')
-          // TODO: write output. check result (is there a movie.mp4?)
+          execSync('ffmpeg -hide_banner -loglevel info -r 1 -loop 1 -i tmp/movie_image.jpg -i tmp/predigt.mp3 -acodec copy -shortest -y tmp/movie.mp4', {stdio: [0, 1, 2]})
+          // TODO: check result (is there a movie.mp4?)
 
           // TODO: Add VOrspann, Abspann https://wiki.ubuntuusers.de/transcode/#Videos-anhaengen
           // avimerge -i Video1 Video2 Video3 -o VideoAlle
