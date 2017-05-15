@@ -1,0 +1,11 @@
+{
+  "name": "predigt2youtube",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start":"node app.js"
+  },
+  "dependencies": {
+    "cheerio": "*"
+  }
+}
