@@ -9,6 +9,7 @@
     "cheerio": "*",
     "request":"*",
     "download":"*",
-    "gm": "*"
+    "gm": "*",
+    "moment":"*"
   }
 }
