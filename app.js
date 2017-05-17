@@ -17,6 +17,7 @@ var download = require('download')
 var gm = require('gm')
 var imageMagick = gm.subClass({imageMagick: true})
 var execSync = require('child_process').execSync
+var config = require('./config.json')
 var data = {}
 console.log('Downloading Predigt-Page')
 request(url, function (error, response, body) {
@@ -28,17 +29,21 @@ request(url, function (error, response, body) {
 
     // Get Data
     console.log('Extracting Data')
-    data.title = $('dd.topic').text()
-    data.tags = $('.tags-links a').text()
-    data.prediger = $('dd.prediger').text()
-    data.series = $('dd.series').text()
-    data.date = moment($('dd.date').text(), 'DD.MM.YYYY')
-    data.length = $('dd.length').text()
-    data.bible = $('dd.bible').text()
-    data.bible_text = $('div.entry-container > div > p:nth-child(7)').text()
-    data.short = $('div.entry-container > div > p:nth-child(3)').text()
-    data.image = $('div.entry-img > img').attr('data-large-file')
-    data.mp3 = $('div.entry-container > div > p.powerpress_links.powerpress_links_mp3 > a.powerpress_link_pinw').attr('href')
+    data.title = $(config.data.title).text()
+    var tags = []
+    $(config.data.tags).each(function (i, elem) {
+      tags[i] = $(this).text()
+    })
+    data.tags = tags.join(',')
+    data.prediger = $(config.data.prediger).text()
+    data.series = $(config.data.series).text()
+    data.date = moment($(config.data.date).text(), config.data.date_format)
+    data.length = $(config.data.length).text()
+    data.bible = $(config.data.bible).text()
+    data.bible_text = $(config.data.bible_text).text()
+    data.short = $(config.data.short).text()
+    data.image = $(config.data.image).attr(config.data.image_attr)
+    data.mp3 = $(config.data.mp3).attr(config.data.mp3_attr)
 
     // Download Images and mp3
     console.log('Downloading Image')
@@ -58,7 +63,7 @@ request(url, function (error, response, body) {
           .font('Helvetica.ttf', 24)
           .drawText(20, 80, data.bible)
           .drawText(20, 110, 'von ' + data.prediger)
-          .drawText(590, 480, data.date)
+          .drawText(590, 480, data.date.format('DD.MM.YYYY'))
           .write('tmp/movie_image.jpg', function (err) {
             if (err) {
               console.error('error', err)
@@ -69,12 +74,14 @@ request(url, function (error, response, body) {
                 'composite',
                 '-geometry 50x50+650+20',
                 '-quality', 100,
-                'assets/feg_logo_512.png',
+                'assets/watermark.png',
                 'tmp/movie_image.jpg', // input
                 'tmp/movie_image_done.jpg'  // output
               ]
               execSync(command.join(' '), {stdio: [0, 1, 2]})
               // TODO: check result
+
+              // TODO: show length of mp3
 
               // convert predigt mp3 to aac file
               console.log('Converting predigt.mp3 to AAC')
@@ -99,7 +106,7 @@ request(url, function (error, response, body) {
               var lines = []
               lines.push(data.short)
               lines.push('')
-              lines.push('Eine Predigt der FeG Fürstenfeldbruck (http://feg-ffb.de)')
+              lines.push(config.youtube.headline)
               lines.push('')
               lines.push('Link zur Predigtseite: ' + url)
               lines.push('')
@@ -119,7 +126,7 @@ request(url, function (error, response, body) {
               console.log('Creating YouTube-Tags')
               var tags = fs.createWriteStream('output/' + data.date.format('YYYYMMDD') + '_tags.txt')
               tags.on('error', function (err) { console.error('Error', err) })
-              tags.write(data.tags)
+              tags.write(data.tags + ',' + config.youtube.additional_tags)
               tags.end()
 
               // TODO-Future: upload to youtube https://github.com/IonicaBizau/youtube-api/blob/master/README.md

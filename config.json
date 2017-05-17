@@ -1,0 +1,22 @@
+{
+  "data": {
+    "title":"dd.topic",
+    "tags":".tags-links a",
+    "prediger": "dd.prediger",
+    "series": "dd.series",
+    "date": "dd.date",
+    "date_format":"DD.MM.YYYY",
+    "length": "dd.length",
+    "bible": "dd.bible",
+    "bible_text": "div.entry-container > div > p:nth-child(7)",
+    "short": "div.entry-container > div > p:nth-child(3)",
+    "image": "div.entry-img > img",
+    "image_attr":"data-large-file",
+    "mp3": "div.entry-container > div > p.powerpress_links.powerpress_links_mp3 > a.powerpress_link_pinw",
+    "mp3_attr":"href"
+  },
+  "youtube": {
+    "headline":"Eine Predigt der FeG Fürstenfeldbruck (http://feg-ffb.de)",
+    "additional_tags":"Predigt,FeG,FeG FFB"
+  }
+}
