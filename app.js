@@ -2,11 +2,15 @@
 // TODO: errors
 // TODO: colors to output
 var url = '' // http://www.feg-ffb.de/2017/05/01/liebe-ist-das-thema/
-if (process.argv.length !== 3) {
+if (process.argv.length < 3) {
   console.error('Please add URL as argument')
   process.exit(1)
 } else {
   url = process.argv[2]
+}
+var rawimage = false
+if(process.argv.length === 3 && process.argv[2] === 'rawimage') {
+    rawimage = true
 }
 
 var cheerio = require('cheerio')
