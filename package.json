@@ -11,6 +11,7 @@
     "download":"*",
     "gm": "*",
     "moment":"*",
-    "fs-extra":"*"
+    "fs-extra":"*",
+    "commander":"*"
   }
 }

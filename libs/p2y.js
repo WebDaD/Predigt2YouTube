@@ -87,7 +87,7 @@ function extractData (config, callback) {
         console.log('Downloading mp3')
         download(data.mp3).then(data2 => {
           fs.writeFileSync(path.join(config.paths.tmp, 'predigt.mp3'), data2)
-          callback(data)
+          callback(null, data)
         }).catch(err => {
           callback(err)
         })
@@ -101,7 +101,7 @@ function createMovieImage (config, data, callback) {
   if (config.rawimage) {
     imageMagick(path.join(config.paths.tmp, 'image.jpg'))
       .resizeExact(720)
-      .write(path.join(config.paths.tmp, 'movie_image.jpg'), function (err) {
+      .write(path.join(config.paths.tmp, 'movie_image_done.jpg'), function (err) {
         if (err) {
           callback(err)
         } else {
@@ -117,8 +117,8 @@ function createMovieImage (config, data, callback) {
       .fill('#FFFFFF')
       .drawText(20, 48, data.title)
       .font('Helvetica.ttf', 24)
-      .drawText(20, 80, data.bible)
-      .drawText(20, 110, 'von ' + data.prediger)
+      .drawText(20, 450, data.bible)
+      .drawText(20, 480, 'von ' + data.prediger)
       .drawText(590, 480, data.date.format('DD.MM.YYYY'))
       .write(path.join(config.paths.tmp, 'movie_image.jpg'), function (err) {
         if (err) {
@@ -213,16 +213,20 @@ function makeYouTubeFiles (config, data, callback) {
   })
 }
 function cleanUpTmp (config, callback) {
-  console.log('Cleaning Up TMP-Folder')
-  fs.unlinkSync(path.join(config.paths.tmp, 'image.jpg'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'intermediate1.ts'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'intermediate2.ts'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'intermediate3.ts'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'movie_image_done.jpg'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'movie_image.jpg'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'movie.mp4'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'predigt.m4a'))
-  fs.unlinkSync(path.join(config.paths.tmp, 'predigt.mp3'))
-  callback(null)
+  if (!config.debug) {
+    console.log('Cleaning Up TMP-Folder')
+    fs.unlinkSync(path.join(config.paths.tmp, 'image.jpg'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'intermediate1.ts'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'intermediate2.ts'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'intermediate3.ts'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'movie_image_done.jpg'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'movie_image.jpg'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'movie.mp4'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'predigt.m4a'))
+    fs.unlinkSync(path.join(config.paths.tmp, 'predigt.mp3'))
+    callback(null)
+  } else {
+    callback(null)
+  }
 }
 exports.createVideo = p2y
