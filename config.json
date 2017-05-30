@@ -1,4 +1,11 @@
 {
+  "paths": {
+    "tmp":"tmp/",
+    "watermark":"assets/watermark.png",
+    "vorspann":"assets/vorspann.mp4",
+    "abspann":"assets/abspann.mp4",
+    "output":"output/"
+  },
   "data": {
     "title":"dd.topic",
     "tags":".tags-links a",
