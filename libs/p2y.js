@@ -111,15 +111,15 @@ function createMovieImage (config, data, callback) {
   } else {
     console.log('Create Poster Image for movie')
     imageMagick(path.join(config.paths.tmp, 'image.jpg'))
-      .resizeExact(720)
+      .resize(1280, 720, '!') // shall be 1280×720 with aspect ratio
       .font('Helvetica.ttf', 36)
       .stroke('#000000', 1)
       .fill('#FFFFFF')
       .drawText(20, 48, data.title)
       .font('Helvetica.ttf', 24)
-      .drawText(20, 450, data.bible)
-      .drawText(20, 480, 'von ' + data.prediger)
-      .drawText(590, 480, data.date.format('DD.MM.YYYY'))
+      .drawText(20, 650, data.bible)
+      .drawText(20, 680, 'von ' + data.prediger)
+      .drawText(1160, 680, data.date.format('DD.MM.YYYY'))
       .write(path.join(config.paths.tmp, 'movie_image.jpg'), function (err) {
         if (err) {
           callback(err)
@@ -127,7 +127,7 @@ function createMovieImage (config, data, callback) {
           // Add watermark (logo) to image
           var command = [
             'composite',
-            '-geometry 50x50+650+20',
+            '-geometry 100x100+1160+20',
             '-quality', 100,
             config.paths.watermark,
             path.join(config.paths.tmp, 'movie_image.jpg'), // input

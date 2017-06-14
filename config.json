@@ -18,7 +18,7 @@
     "bible_text": "div.entry-container > div > p:nth-child(7)",
     "short": "div.entry-container > div > p:nth-child(3)",
     "image": "div.entry-img > img",
-    "image_attr":"data-large-file",
+    "image_attr":"data-orig-file",
     "mp3": "div.entry-container > div > p.powerpress_links.powerpress_links_mp3 > a.powerpress_link_pinw",
     "mp3_attr":"href"
   },
