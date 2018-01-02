@@ -207,7 +207,7 @@ function makeYouTubeFiles (config, data, callback) {
           return callback(err)
         } else {
           console.log('Creating Title Page')
-          fs.writeFile(config.paths.output + data.date.format('YYYYMMDD') + '_title.txt', config.youtube.titleprefix + ' - ' + data.date.format('DD.MM.YYYY') + ' - ' + date.title, function (err) {
+          fs.writeFile(config.paths.output + data.date.format('YYYYMMDD') + '_title.txt', config.youtube.titleprefix + ' - ' + data.date.format('DD.MM.YYYY') + ' - ' + data.title, function (err) {
             if (err) {
               return callback(err)
             } else {
