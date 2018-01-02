@@ -24,6 +24,7 @@
   },
   "youtube": {
     "headline":"Eine Predigt der FeG Fürstenfeldbruck (http://feg-ffb.de)",
-    "additional_tags":"Predigt,FeG,FeG FFB"
+    "additional_tags":"Predigt,FeG,FeG FFB",
+    "titleprefix":"FeG FFB - Predigt"
   }
 }
