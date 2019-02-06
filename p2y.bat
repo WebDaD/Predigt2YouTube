@@ -1,0 +1,1 @@
+node C:\Users\sigmu\Code\predigt2youtube\app.js %*

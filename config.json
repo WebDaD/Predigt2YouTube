@@ -1,25 +1,25 @@
 {
   "paths": {
-    "tmp":"tmp/",
-    "watermark":"assets/watermark.png",
-    "vorspann":"assets/vorspann.mp4",
-    "abspann":"assets/abspann.mp4",
-    "output":"output/"
+    "tmp":"C:\\Users\\sigmu\\Code\\predigt2youtube\\tmp\\",
+    "watermark":"C:\\Users\\sigmu\\Code\\predigt2youtube\\assets\\watermark.png",
+    "vorspann":"C:\\Users\\sigmu\\Code\\predigt2youtube\\assets\\vorspann.mp4",
+    "abspann":"C:\\Users\\sigmu\\Code\\predigt2youtube\\assets\\abspann.mp4",
+    "output":"C:\\Users\\sigmu\\Downloads\\"
   },
   "data": {
-    "title":"dd.topic",
+    "title":"td.topic",
     "tags":".tags-links a",
-    "prediger": "dd.prediger",
-    "series": "dd.series",
-    "date": "dd.date",
+    "prediger": "td.prediger",
+    "series": "td.series",
+    "date": "td.date",
     "date_format":"DD.MM.YYYY",
-    "length": "dd.length",
-    "bible": "dd.bible",
+    "length": "td.length",
+    "bible": "td.bible",
     "bible_text": "div.entry-container > div > p:nth-child(7)",
-    "short": "div.entry-container > div > p:nth-child(3)",
-    "image": "div.entry-img > img",
+    "short": "article > div > p:nth-child(3)",
+    "image": "#page > div.single-featured-image-header > img",
     "image_attr":"data-orig-file",
-    "mp3": "div.entry-container > div > p.powerpress_links.powerpress_links_mp3 > a.powerpress_link_pinw",
+    "mp3": "article > div > p.powerpress_links.powerpress_links_mp3 > a.powerpress_link_d",
     "mp3_attr":"href"
   },
   "youtube": {

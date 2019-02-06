@@ -32,11 +32,17 @@ function p2y (config, callback) {
                         if (error) {
                           callback(error)
                         } else {
-                          cleanUpTmp(config, function (error) {
+                          makeInstaFiles(config, predigtData, function (error) {
+                            if (error) {
+                              callback(error)
+                            } else {
+                              cleanUpTmp(config, function (error) {
                             if (error) {
                               callback(error)
                             } else {
                               callback(null, 'Done. Go to the output-Folder and Upload the Video!')
+                            }
+                          })
                             }
                           })
                         }
@@ -79,7 +85,6 @@ function extractData (config, callback) {
       data.short = $(config.data.short).text()
       data.image = $(config.data.image).attr(config.data.image_attr)
       data.mp3 = $(config.data.mp3).attr(config.data.mp3_attr)
-
       // Download Images and mp3
       console.log('Downloading Image')
       download(data.image).then(data1 => {
@@ -211,11 +216,47 @@ function makeYouTubeFiles (config, data, callback) {
             if (err) {
               return callback(err)
             } else {
-              callback(null)
+              fs.copyFile(path.join(config.paths.tmp, 'movie_image_done.jpg'), config.paths.output + data.date.format('YYYYMMDD') + '_image.jpg', function (err) {
+                if (err) {
+return callback(err)
+                } else {
+return callback(null)
+                }
+              }) 
             }
           })
         }
       })
+    }
+  })
+}
+function makeInstaFiles (config, data, callback) {
+  console.log('Creating Instagram-Description')
+  var lines = []
+  lines.push(config.youtube.titleprefix + ' - ' + data.date.format('DD.MM.YYYY') + ' - ' + data.title)
+  lines.push('')
+  lines.push(data.short)
+  lines.push('')
+  lines.push(config.youtube.headline)
+  lines.push('')
+  lines.push('Link zum YouTube-Video: ')
+  lines.push('Link zur Predigtseite: ' + config.url)
+  lines.push('')
+  lines.push('Prediger: ' + data.prediger)
+  lines.push('Reihe: ' + data.series)
+  lines.push('Datum: ' + data.date.format('DD.MM.YYYY'))
+  lines.push('Länge: ' + data.length)
+  lines.push('Bibelstelle: ' + data.bible)
+  lines.push('')
+  lines.push(data.bible_text)
+  lines.push('')
+  lines.push('#' + data.tags.replace(/,/g, ' #') + ' #' + config.youtube.additional_tags.replace(/,/g, ' #'))
+
+  fs.writeFile(config.paths.output + data.date.format('YYYYMMDD') + '_instagram.txt', lines.join('\n'), function (err) {
+    if (err) {
+      return callback(err)
+    } else {
+      return callback(null)
     }
   })
 }
@@ -226,7 +267,7 @@ function cleanUpTmp (config, callback) {
     fs.unlinkSync(path.join(config.paths.tmp, 'intermediate1.ts'))
     fs.unlinkSync(path.join(config.paths.tmp, 'intermediate2.ts'))
     fs.unlinkSync(path.join(config.paths.tmp, 'intermediate3.ts'))
-    fs.unlinkSync(path.join(config.paths.tmp, 'movie_image_done.jpg'))
+    // fs.unlinkSync(path.join(config.paths.tmp, 'movie_image_done.jpg'))
     fs.unlinkSync(path.join(config.paths.tmp, 'movie_image.jpg'))
     fs.unlinkSync(path.join(config.paths.tmp, 'movie.mp4'))
     fs.unlinkSync(path.join(config.paths.tmp, 'predigt.m4a'))
