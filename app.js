@@ -23,6 +23,8 @@ if (!program.args.length === 1) {
   config.url = program.args[0]
 }
 
+console.log('Using URL: ' + config.url)
+
 p2y.createVideo(config, function (error, response) {
   if (error) {
     console.error(error)

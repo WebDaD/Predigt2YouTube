@@ -67,7 +67,6 @@ function extractData (config, callback) {
       callback(error)
     } else {
       var $ = cheerio.load(body)
-
       // Get Data
       console.log('Extracting Data')
       data.title = $(config.data.title).text()

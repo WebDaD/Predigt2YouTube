@@ -1,10 +1,17 @@
 {
   "paths": {
-    "tmp":"C:\\Users\\sigmu\\Code\\predigt2youtube\\tmp\\",
-    "watermark":"C:\\Users\\sigmu\\Code\\predigt2youtube\\assets\\watermark.png",
-    "vorspann":"C:\\Users\\sigmu\\Code\\predigt2youtube\\assets\\vorspann.mp4",
-    "abspann":"C:\\Users\\sigmu\\Code\\predigt2youtube\\assets\\abspann.mp4",
-    "output":"C:\\Users\\sigmu\\Downloads\\"
+    "tmp":"/tmp/",
+    "watermark":"/opt/predigt2youtube/assets/watermark.png",
+    "vorspann":"/opt/predigt2youtube/assets/vorspann.mp4",
+    "abspann":"/opt/predigt2youtube/assets/abspann.mp4",
+    "output":"/Users/sigmundd/Downloads/"
+  },
+  "urls": {
+    "website": "https://feg-ffb.de/wp-admin/post-new.php",
+    "facebook":"https://www.facebook.com/feg.fuerstenfeldbruck/?ref=bookmarks",
+    "pinterest":"https://www.pinterest.de/pin-builder/",
+    "instagram":"https://www.instagram.com/",
+    "youtube":"https://studio.youtube.com/channel/UC_IWF87C4fMCWRkOGYhGslg/videos/upload?d=ud&filter=%5B%5D&sort=%7B%22columnType%22%3A%22date%22%2C%22sortOrder%22%3A%22DESCENDING%22%7D"
   },
   "data": {
     "title":"td.topic",
@@ -26,5 +33,9 @@
     "headline":"Eine Predigt der FeG Fürstenfeldbruck (http://feg-ffb.de)",
     "additional_tags":"Predigt,FeG,FeG FFB",
     "titleprefix":"FeG FFB - Predigt"
+  },
+  "bibleAPI": {
+    "bibleID":"95410db44ef800c1-01",
+    "apiKey":"b6179eb7689f1ebac25feed31b5215d6"
   }
 }

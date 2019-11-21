@@ -1,0 +1,3 @@
+#!/bin/bash
+
+node /Users/sigmundd/Code/predigt2youtube/app.js $1
